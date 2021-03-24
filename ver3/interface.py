@@ -1,4 +1,5 @@
 import tkinter
+import re
 from ver3 import logic
 
 
@@ -238,8 +239,11 @@ class MainWindow:
 
         def manual_search(team):
             def send_diccerct_url():
-                id=id_entry.get()
-                team.get_team_glico_and_id(id)
+                url=url_entry.get()
+
+                id=re.findall(r'classic\?team-a=([0-9]+?)&patch',url)[0]
+                print(id)
+                team.manual_search_preparation(url,id)
                 team.fill_hero_dict()
 
                 manual_search_frame.destroy()
@@ -247,15 +251,15 @@ class MainWindow:
 
             self.main_frame.grid_forget()
             manual_search_frame=tkinter.Frame(self.root)
-            team_label=tkinter.Label(manual_search_frame,text='Open page with matches for team {} manualy\n and input team\'s id please'.format(team.team_name.capitalize()))
-            id_label=tkinter.Label(manual_search_frame,text='Id:')
-            id_entry=tkinter.Entry(manual_search_frame)
+            team_label=tkinter.Label(manual_search_frame,text='Open page with matches for team {} manualy\n and copy that url to entry please'.format(team.team_name.capitalize()))
+            url_label=tkinter.Label(manual_search_frame,text='url:')
+            url_entry=tkinter.Entry(manual_search_frame)
             search_submit_button=tkinter.Button(manual_search_frame,text='Submit',command=send_diccerct_url)
 
             manual_search_frame.grid()
             team_label.grid(row=0,column=0)
-            id_label.grid(row=1,column=0)
-            id_entry.grid(row=1,column=1)
+            url_label.grid(row=1,column=0)
+            url_entry.grid(row=1,column=1)
             search_submit_button.grid(row=2,column=1)
 
         def auto_search(team):
@@ -263,14 +267,12 @@ class MainWindow:
                 team.find_all_matches()
                 team.fill_hero_dict()
             except KeyError:
-                print('switching to manual search')
                 manual_search(team)
 
 
         team_a_name = self.team_a_entry.get()
         self.team_a=logic.DictBuilder(team_a_name)
         if self.date!=[]:
-            print(self.date)
             self.team_a.choose_date(self.date)
 
         if self.team_a_auto_or_manual_search_var.get()=='Auto':

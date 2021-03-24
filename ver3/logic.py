@@ -18,6 +18,13 @@ class DictBuilder:
         self.start_value_hero_power=0
         self.start_value_connections_power = 0
 
+    def manual_search_preparation(self,url,id):
+        self.driver.get(url)
+        self.team_id=id
+        self.team_glico=float(self.glico_dict[self.team_id])
+
+
+
     def choose_date(self,date):
         date='{}/{}/{}'.format(date[0],date[1],date[2])
 
