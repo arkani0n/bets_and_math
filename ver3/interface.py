@@ -44,6 +44,9 @@ class MainWindow:
         self.a_choice_heroes_button.bind('<Button-1>',self.set_teams_radio_var_a)
         self.b_choice_heroes_button.bind('<Button-1>',self.set_teams_radio_var_b)
 
+        self.a_chosen_hero_label=tkinter.Label()
+        self.b_chosen_hero_label = tkinter.Label()
+
         self.reset_a_button=tkinter.Button(self.main_frame, text='Reset', command=self.reset_chosen_heroes)
         self.reset_b_button=tkinter.Button(self.main_frame,text='Reset',command=self.reset_chosen_heroes)
 
@@ -66,8 +69,10 @@ class MainWindow:
     def reset_chosen_heroes(self):
         if self.teams_radio_var.get() == 'Team A':
             self.team_a.heroes_for_analyze=[]
+            self.a_chosen_hero_label.grid_forget()
         elif self.teams_radio_var.get() == 'Team B':
             self.team_b.heroes_for_analyze=[]
+            self.b_chosen_hero_label.grid_forget()
 
     def get_vector_module(self,power_h,power_c):
         return (power_h**2+power_c**2)**0.5
@@ -199,9 +204,9 @@ class MainWindow:
         self.a_choice_heroes_button.grid(row=3,column=0)
         self.b_choice_heroes_button.grid(row=3,column=1)
 
-        self.reset_a_button.grid(row=4,column=0)
-        self.reset_b_button.grid(row=4,column=1)
-        self.analyze_button.grid(row=5,column=1)
+        self.reset_a_button.grid(row=5,column=0)
+        self.reset_b_button.grid(row=5,column=1)
+        self.analyze_button.grid(row=6,column=1)
 
         self.team_a_radio.grid(row=0,column=0)
         self.team_b_radio.grid(row=0,column=1)
@@ -209,10 +214,22 @@ class MainWindow:
         self.all_heroes_window()
 
     def third_stage_grid(self):
-        self.team_a_analyze_results_label.grid(row=6,column=0)
-        self.team_b_analyze_results_label.grid(row=6,column=1)
+        self.team_a_analyze_results_label.grid(row=7,column=0)
+        self.team_b_analyze_results_label.grid(row=7,column=1)
 
     def all_heroes_window(self):
+
+        def grid_chosen_hero_label(event):
+            if self.teams_radio_var.get() == 'Team A':
+                hero_list_to_str=''.join([hero_name+'\n' for hero_name in self.team_a.heroes_for_analyze])
+                self.a_chosen_hero_label.grid_forget()
+                self.a_chosen_hero_label=tkinter.Label(self.main_frame,text=hero_list_to_str)
+                self.a_chosen_hero_label.grid(row=4,column=0)
+            elif self.teams_radio_var.get() == 'Team B':
+                hero_list_to_str = ''.join([hero_name + '\n' for hero_name in self.team_b.heroes_for_analyze])
+                self.b_chosen_hero_label.grid_forget()
+                self.b_chosen_hero_label=tkinter.Label(self.main_frame,text=hero_list_to_str)
+                self.b_chosen_hero_label.grid(row=4,column=1)
 
         def add_hero_to_analyze_list():
             nonlocal all_heroes_var
@@ -232,7 +249,9 @@ class MainWindow:
             if row==15:
                 row=1
                 colomn+=1
-        tkinter.Button(self.all_heroes_frame,text='Comfirm',command=self.switch_to_main_frame).grid(row=row,column=colomn+2)
+        confirm_button=tkinter.Button(self.all_heroes_frame,text='Comfirm',command=self.switch_to_main_frame)
+        confirm_button.bind('<Button-1>',grid_chosen_hero_label)
+        confirm_button.grid(row=row,column=colomn+2)
 
 
     def search(self):
@@ -291,8 +310,6 @@ class MainWindow:
             manual_search(self.team_b)
 
         self.second_stage_place()
-
-
 
 
 test=MainWindow()
