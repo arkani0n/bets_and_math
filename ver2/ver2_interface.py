@@ -1,11 +1,10 @@
 import tkinter
-import pyperclip
-import ver2
+from ver2 import ver2
 
 
 def take_url():
     global collector
-    collector=ver2.GrafMaker(entery_space.get())
+    collector= ver2.GrafMaker(entery_space.get())
     collector.fill_heroes_rel_with_data()
     collector.graf_make()
     hero_rels_button.pack()
