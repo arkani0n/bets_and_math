@@ -43,7 +43,7 @@ def glico_collctor(team_id_list):
         glico_dict[id]=rating
     return glico_dict
 def create_glico_log(glico_dictinary):
-    with open(str(datetime.date.today())+'.txt','w') as glico_log:
+    with open('glico_logs/'+str(datetime.date.today())+'.txt','w') as glico_log:
         for team_id in glico_dictinary:
             glico_log.write(team_id+':'+glico_dictinary[team_id]+'\n')
 

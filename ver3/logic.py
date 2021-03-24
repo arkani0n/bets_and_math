@@ -52,7 +52,7 @@ class DictBuilder:
     def fill_glico_dict(self):
         dict={}
 
-        with open(str(date.today())+'.txt','r') as glico_log:
+        with open('glico_logs/'+str(date.today())+'.txt','r') as glico_log:
             for row in glico_log.readlines():
                 row=row.strip().split(':')
                 dict[row[0]]=row[1]
