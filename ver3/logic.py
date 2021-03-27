@@ -1,5 +1,5 @@
 from selenium import webdriver
-from datetime import date
+import datetime
 
 class DictBuilder:
 
@@ -63,7 +63,7 @@ class DictBuilder:
     def fill_glico_dict(self):
         dict={}
 
-        with open('glico_logs/'+str(date.today())+'.txt','r') as glico_log:
+        with open('glico_logs/'+str(datetime.date.today())+'.txt','r') as glico_log:
             for row in glico_log.readlines():
                 row=row.strip().split(':')
                 dict[row[0]]=row[1]
@@ -91,7 +91,12 @@ class DictBuilder:
         self.driver.find_element_by_class_name('select2-search__field').send_keys(self.team_name)
         search_opionts = self.driver.find_element_by_id('select2-team-a-results')
         search_opionts = search_opionts.find_elements_by_tag_name('li')
-        while len(search_opionts)<2:
+        time_start=datetime.datetime.now()
+        while len(search_opionts)<=2:
+
+            if (time_start+datetime.timedelta(seconds=3))<datetime.datetime.now():
+                break
+
             search_opionts = self.driver.find_element_by_id('select2-team-a-results')
             search_opionts = search_opionts.find_elements_by_tag_name('li')
 
