@@ -80,19 +80,18 @@ class MainWindow:
     def set_teams_power_info_labels(self):
         a_vector_module=self.get_vector_module(self.team_a.heroes_power,self.team_a.connection_power)
         b_vector_module=self.get_vector_module(self.team_b.heroes_power,self.team_b.connection_power)
-        print(a_vector_module)
-        print(b_vector_module)
-        self.team_a_analyze_results_label=tkinter.Label(self.main_frame,text='Pick hero power:{}\n Pick connections power:{}\n Probability:{}%'
-                                                        .format(self.team_a.heroes_power,self.team_a.connection_power,
+
+        a_matches_analyzed=self.team_a.get_matches_analyzed()
+        b_matches_analyzed=self.team_b.get_matches_analyzed()
+        self.team_a_analyze_results_label=tkinter.Label(self.main_frame,text='Matches analyzed:{}\nPick hero power:{}\n Pick connections power:{}\n Probability:{}%'
+                                                        .format(a_matches_analyzed,self.team_a.heroes_power,self.team_a.connection_power,
                                                                 a_vector_module/(a_vector_module+b_vector_module)*100))
 
-        self.team_b_analyze_results_label=tkinter.Label(self.main_frame,text='Pick hero power:{}\n Pick connections power:{}\n Probability:{}%'
-                                                        .format(self.team_b.heroes_power,self.team_b.connection_power,
+        self.team_b_analyze_results_label=tkinter.Label(self.main_frame,text='Matches analyzed:{} \nPick hero power:{}\n Pick connections power:{}\n Probability:{}%'
+                                                        .format(b_matches_analyzed,self.team_b.heroes_power,self.team_b.connection_power,
                                                                 b_vector_module/(a_vector_module+b_vector_module)*100))
 
     def analyze(self):
-        print(self.team_a.heroes_for_analyze)
-        print(self.team_b.heroes_for_analyze)
         self.team_a.analyze()
         self.team_b.analyze()
         self.set_teams_power_info_labels()

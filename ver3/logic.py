@@ -17,6 +17,10 @@ class DictBuilder:
         self.connection_power = 0
         self.start_value_hero_power=0
         self.start_value_connections_power = 0
+        self.matches_analyzed=0
+
+    def get_matches_analyzed(self):
+        return self.matches_analyzed
 
     def manual_search_preparation(self,url,id):
         self.driver.get(url)
@@ -102,7 +106,7 @@ class DictBuilder:
                 button.click()
 
     def fill_hero_dict(self):
-        done=0
+        self.matches_analyzed=0
         all_pages_buttons = self.driver.find_element_by_id('DataTables_Table_0_paginate').find_elements_by_tag_name(
             'li')
         pages = int(all_pages_buttons[-2].get_attribute('innerText'))
@@ -111,7 +115,7 @@ class DictBuilder:
             rows = self.driver.find_element_by_id(
                 'DataTables_Table_0').find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
             for row in rows:
-                done+=1
+                self.matches_analyzed+=1
                 columns = row.find_elements_by_tag_name('td')
                 match_number = columns[0].get_attribute('innerText')
                 match_result = 'Win' if columns[-1].get_attribute("innerText") == 'Team A' else 'Lose'
