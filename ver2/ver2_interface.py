@@ -1,5 +1,5 @@
 import tkinter
-from ver2 import ver2
+import ver2
 
 
 def take_url():
