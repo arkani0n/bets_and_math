@@ -52,15 +52,15 @@ class GrafMaker:
             hero_rels.append(blank)
         return hero_rels
 
-    def graf_create_new(self,driver):
-        driver.find_element(By.CSS_SELECTOR ,'.btn.btn-default.btn-sm.dropdown-toggle').click()
-        driver.find_element(By.ID, 'NewGraph').click()
-
-    def graf_save(self,driver):
-        driver.find_element(By.CSS_SELECTOR ,'.btn.btn-default.btn-sm.dropdown-toggle').click()
-        driver.find_element(By.ID ,'SaveGraph').click()
-        graf_url=driver.find_element(By.ID,'GraphName').get_attribute('value')
-        print(graf_url)
+    # def graf_create_new(self,driver):
+    #     driver.find_element(By.CSS_SELECTOR ,'.btn.btn-default.btn-sm.dropdown-toggle').click()
+    #     driver.find_element(By.ID, 'NewGraph').click()
+    #
+    # def graf_save(self,driver):
+    #     driver.find_element(By.CSS_SELECTOR ,'.btn.btn-default.btn-sm.dropdown-toggle').click()
+    #     driver.find_element(By.ID ,'SaveGraph').click()
+    #     graf_url=driver.find_element(By.ID,'GraphName').get_attribute('value')
+    #     print(graf_url)
 
     def heroes_rel_to_str(self):
         heroes_rel_str=''
@@ -102,15 +102,15 @@ class GrafMaker:
         save_and_cancel_butt=driver.find_element(By.CLASS_NAME, 'ui-dialog-buttonset').find_element(By.TAG_NAME, 'button')
         save_and_cancel_butt[0].click()
 
-    def graf_make(self):
-        self.driver.get(self.graf_site_url)
-        '''
-        self.driver.get(self.graf_site_url)
-        self.graf_create_new(self.driver)
-        #self.graf_input_heroes_rels(self.driver)
-        self.graf_change_names(self.driver)
-        self.graf_save(self.driver)
-        '''
+    # def graf_make(self):
+    #     self.driver.get(self.graf_site_url)
+    #     '''
+    #     self.driver.get(self.graf_site_url)
+    #     self.graf_create_new(self.driver)
+    #     #self.graf_input_heroes_rels(self.driver)
+    #     self.graf_change_names(self.driver)
+    #     self.graf_save(self.driver)
+    #     '''
 
     def wight_vision_on(self):
         algorithms=self.driver.find_element(By.ID, 'openAlgorithmList')

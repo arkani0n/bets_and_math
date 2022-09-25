@@ -6,10 +6,10 @@ def take_url():
     global collector
     collector= ver2.GrafMaker(entery_space.get())
     collector.fill_heroes_rel_with_data()
-    collector.graf_make()
+    # collector.graf_make()
     hero_rels_button.pack()
     hero_names_button.pack()
-    graff_vision_based_on_wight.pack()
+    # graff_vision_based_on_wight.pack()
 
 def copy_hero_rels():
     global collector

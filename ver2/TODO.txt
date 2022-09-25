@@ -1,0 +1,1 @@
+show only heroes with more than 4 games that have more than 50% winrate
