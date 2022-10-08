@@ -27,10 +27,28 @@ class GrafMaker:
         print(self.coords_and_names)
         print()
         print(self.max_picks)
-
+        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+        color_index=0
+        counted_heroes = []
+        for hero in self.picked_heroes_dict:
+            color_index+=1
+            color = colors[color_index]
+            hero_x_cord = self.picked_heroes_dict[hero]["total_number_of_picks"]
+            hero_y_cord = self.picked_heroes_dict[hero]["winrate"]
+            for other_hero in self.picked_heroes_dict[hero]["connections"]:
+                if self.picked_heroes_dict[hero]["connections"][other_hero]["win_number"] == 0 and self.picked_heroes_dict[hero]["connections"][other_hero]["lose_number"] == 0:
+                    continue
+                if other_hero in counted_heroes:
+                    continue
+                other_hero_x_cord = self.picked_heroes_dict[other_hero]["total_number_of_picks"]
+                other_hero_y_cord = self.picked_heroes_dict[other_hero]["winrate"]
+                other_hero_connection_stat = f'{self.picked_heroes_dict[hero]["connections"][other_hero]["win_number"]} | {self.picked_heroes_dict[hero]["connections"][other_hero]["lose_number"]}'
+                self.Plot.plot(x=[hero_x_cord, other_hero_x_cord], y= [hero_y_cord, other_hero_y_cord], color=color)
+                self.Plot.annotate(x=(float(hero_x_cord) + float(other_hero_x_cord))/2, y=(float(hero_y_cord) + float(other_hero_y_cord))/2, text=other_hero_connection_stat)
+            counted_heroes.append(hero)
         for cords in self.sorted_coords():
             x_cord, y_cord = cords.split()
-            self.Plot.plot(x=int(x_cord),y=float(y_cord))
+            # self.Plot.plot(x=int(x_cord),y=float(y_cord))float(hero_x_cord) + float(other_hero_x_cord)
             self.Plot.annotate(x=int(x_cord),y=float(y_cord),text=self.coords_and_names[cords])
 
         self.Plot.set_x_lim(int(self.max_picks))
@@ -204,8 +222,8 @@ class Plot:
         self.ax.set_ylabel('Winrate')
         self.ax.set_xlabel('Pick times')
 
-    def plot(self,x,y):
-        self.ax.plot([x],[y], marker='o')
+    def plot(self,x,y,color):
+        self.ax.plot(x,y, marker='o', color=color)
 
     def annotate(self,x,y,text):
         self.ax.annotate(str(text), (x, y), fontsize=12, horizontalalignment='center', verticalalignment='center')
