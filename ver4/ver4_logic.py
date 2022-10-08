@@ -92,7 +92,7 @@ class GrafMaker:
             self.picked_heroes_dict[hero_name] = {
                 "id"                    : self.heroes_dic[hero_name][0], # check def set_heroes_dic for heroes_dic structure
                 "total_number_of_picks" : sum(self.heroes_dic[hero_name][1]),
-                "winrate"               : round(self.heroes_dic[hero_name][1][0] / (self.heroes_dic[hero_name][1][0] + self.heroes_dic[hero_name][1][1]), 2)
+                "winrate"               : round(self.heroes_dic[hero_name][1][0] / (self.heroes_dic[hero_name][1][0] + self.heroes_dic[hero_name][1][1]), 2) if (self.heroes_dic[hero_name][1][0] + self.heroes_dic[hero_name][1][1]) != 0 else 0
             }
         """
         dict{
