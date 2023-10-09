@@ -61,6 +61,7 @@ Meepo
 Mirana
 Monkey King
 Morphling
+Muerta
 Naga Siren
 Nature's Prophet
 Necrophos
