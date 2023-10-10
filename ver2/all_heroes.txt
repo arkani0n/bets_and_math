@@ -54,6 +54,7 @@ Meepo
 Mirana
 Monkey King
 Morphling
+Muerta
 Nyx Assassin
 Pangolier
 Phantom Assassin
